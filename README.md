@@ -1,0 +1,1 @@
+Uma aplicação que consiste em emitir um aleta de perigo quando um medicoestiver sob situação de risco dentro do consultório
