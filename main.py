@@ -1,13 +1,15 @@
 from tkinter import *
 
 import requests
+import socket
 
 
 class Application():
     def __init__(self, root):
         self.root = root
         self.tela()
-        self.ip_do_servidor = "192.168.0.51"
+        self.ip_do_servidor = "10.16.90.122"
+        self.porta_do_servidor = 8080
         self.criar_interface()
 
     def tela(self):
@@ -49,14 +51,27 @@ class Application():
 
     def enviar_chamado(self):
         try:
-            url = f"http://{self.ip_do_servidor}/"
-            response = requests.post(url, data="Chamado Enviado!")
+            # Cria um socket TCP/IP
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-            if response.status_code == 220:
+            # Conecta-se ao servidor
+            sock.connect(("10.16.90.122", 8080))
+
+            # Envia a requisição
+            sock.sendall("alerta".encode())
+
+            # Recebe a resposta
+            resposta = sock.recv(1024).decode()
+
+            # Fecha a conexão
+            sock.close()
+
+            # Verifica a resposta
+            if resposta == "OK":
                 self.rotulo_var.set("Chamado Enviado!")
             else:
                 self.rotulo_var.set("Erro no Servidor")
-        except requests.RequestException as e:
+        except Exception as e:
             self.rotulo_var.set("Sem Conexão com o Servidor")
             self.root.after(1000, self.enviar_chamado)
         
