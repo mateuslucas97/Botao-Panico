@@ -131,6 +131,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+botaopanico/
 
 # Spyder project settings
 .spyderproject
