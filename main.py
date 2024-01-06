@@ -3,12 +3,13 @@ from tkinter import *
 import requests
 import socket
 
+IP_SERVIDOR = "192.168.0.51"
 
 class Application():
     def __init__(self, root):
         self.root = root
         self.tela()
-        self.ip_do_servidor = "10.16.90.122"
+        #self.ip_do_servidor = "192.168.0.1"
         self.porta_do_servidor = 8080
         self.criar_interface()
 
@@ -55,7 +56,7 @@ class Application():
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
             # Conecta-se ao servidor
-            sock.connect(("10.16.90.122", 8080))
+            sock.connect((IP_SERVIDOR, 8080))
 
             # Envia a requisição
             sock.sendall("alerta".encode())
@@ -67,7 +68,7 @@ class Application():
             sock.close()
 
             # Verifica a resposta
-            if resposta == "OK":
+            if resposta != "ERRO":
                 self.rotulo_var.set("Chamado Enviado!")
             else:
                 self.rotulo_var.set("Erro no Servidor")
