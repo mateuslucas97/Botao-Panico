@@ -1,9 +1,9 @@
 import socket
 from tkinter import *
 
-import requests
+#import requests
 
-IP_SERVIDOR = '192.168.0.51'
+IP_SERVIDOR = '10.16.90.122'
 
 
 class Application:
@@ -82,7 +82,9 @@ class Application:
                 self.rotulo_var.set('Erro no Servidor')
         except Exception as e:
             self.rotulo_var.set('Sem Conexão com o Servidor')
-            self.root.after(1000, self.enviar_chamado)
+            #self.root.after(1000, self.enviar_chamado)
+            if resposta == None:
+                self.rotulo_var.set('Servidor Indisponivel')
 
 
 if __name__ == '__main__':
