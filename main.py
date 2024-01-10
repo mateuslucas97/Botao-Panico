@@ -1,4 +1,5 @@
 import socket
+from threading import Thread
 from tkinter import *
 
 #import requests
@@ -56,7 +57,14 @@ class Application:
         rotulo.grid(row=1, column=0, pady=20, padx=20, sticky='nsew')
 
     def clique_do_botao(self):
-        self.enviar_chamado()
+        # Cria um thread para enviar a requisição
+        thread = Thread(target=self.enviar_chamado)
+
+        # Inicia o thread
+        thread.start()
+
+        # Atualiza o rótulo
+        self.rotulo_var.set('Chamado Enviado!')
 
     def enviar_chamado(self):
         try:
@@ -78,10 +86,13 @@ class Application:
             # Verifica a resposta
             if resposta != 'ERRO':
                 self.rotulo_var.set('Chamado Enviado!')
+                pass
             else:
                 self.rotulo_var.set('Erro no Servidor')
+                pass
         except Exception as e:
             self.rotulo_var.set('Sem Conexão com o Servidor')
+            pass
             #self.root.after(1000, self.enviar_chamado)
             if resposta == None:
                 self.rotulo_var.set('Servidor Indisponivel')
