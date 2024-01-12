@@ -41,6 +41,8 @@ class Application:
         texto_do_botao = 'Chamar'
         tamanho_fonte = 16
 
+        self.consultorio = 1
+
         botao = Button(
             self.root,
             text=texto_do_botao,
@@ -75,7 +77,8 @@ class Application:
             sock.connect((IP_SERVIDOR, 8080))
 
             # Envia a requisição
-            sock.sendall('alerta'.encode())
+            solicitacao = 'alerta-consultorio1'
+            sock.sendall(solicitacao.encode())
 
             # Recebe a resposta
             resposta = sock.recv(1024).decode()
