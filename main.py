@@ -5,14 +5,12 @@ from tkinter import *
 #import requests
 
 IP_SERVIDOR = '10.16.90.122'
-
+PORTA_DO_SERVIDOR = 8080
 
 class Application:
     def __init__(self, root):
         self.root = root
         self.tela()
-        # self.ip_do_servidor = "192.168.0.1"
-        self.porta_do_servidor = 8080
         self.criar_interface()
 
     def tela(self):
@@ -74,10 +72,12 @@ class Application:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
             # Conecta-se ao servidor
-            sock.connect((IP_SERVIDOR, 8080))
+            sock.connect((IP_SERVIDOR, PORTA_DO_SERVIDOR))
 
-            # Envia a requisição
-            solicitacao = 'alerta-consultorio1'
+            # Adiciona a identificação à requisição
+            solicitacao = 'alerta,' + open('identificacao_cliente', 'r').read()
+
+            # Envia a requisicao
             sock.sendall(solicitacao.encode())
 
             # Recebe a resposta
@@ -96,7 +96,7 @@ class Application:
         except Exception as e:
             self.rotulo_var.set('Sem Conexão com o Servidor')
             pass
-            #self.root.after(1000, self.enviar_chamado)
+            
             if resposta == None:
                 self.rotulo_var.set('Servidor Indisponivel')
 
