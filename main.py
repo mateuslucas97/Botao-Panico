@@ -39,7 +39,7 @@ class Application:
         texto_do_botao = 'Chamar'
         tamanho_fonte = 16
 
-        self.consultorio = 1
+        #self.consultorio = 1
 
         botao = Button(
             self.root,
@@ -75,7 +75,8 @@ class Application:
             sock.connect((IP_SERVIDOR, PORTA_DO_SERVIDOR))
 
             # Adiciona a identificação à requisição
-            solicitacao = 'alerta,' + open('identificacao_cliente', 'r').read()
+            solicitacao = 'alerta,' + open('identificacao_cliente.txt', 'r').read()
+
 
             # Envia a requisicao
             sock.sendall(solicitacao.encode())
