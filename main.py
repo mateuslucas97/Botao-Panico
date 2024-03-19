@@ -1,11 +1,12 @@
 import socket
+import random
 import os
 from threading import Thread
 from tkinter import *
 
 
-IP_SERVIDOR = '10.16.90.122'
-PORTA_DO_SERVIDOR = 8080
+IP_SERVIDOR = '10.16.90.208'
+PORTA_DO_SERVIDOR = 8090
 
 def verificar_primeira_execucao(root):
         if not os.path.exists('primeira_execucao.txt'):
@@ -16,13 +17,14 @@ def verificar_primeira_execucao(root):
                 pass
         else:
             tela_principal = TelaPrincipal(root)
+            root = tela_principal.criar_tela()
             tela_principal.criar_tela().root.mainloop()
 
 class Application:
     def __init__(self, root):
         self.root = root
 
-    def executar(self):
+    def executar(self, root):
         verificar_primeira_execucao(self.root)
 
 class Executar:
@@ -30,7 +32,7 @@ class Executar:
     def executar():
         root = Tk()
         Executar.inicializar_janela(root)
-        Application(root).executar()
+        Application(root).executar(root)
         root.mainloop()
 
     @staticmethod
@@ -190,7 +192,4 @@ class TelaPrincipal:
                 self.rotulo_var.set('Servidor Indisponivel')
        
 if __name__ == '__main__':
-    #root = Tk()
-    #app = Application(root)
-    #app.executar()
     Executar.executar()
